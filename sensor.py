@@ -3,11 +3,10 @@ import logging
 
 from homeassistant.const import (
     CONF_ACCESS_TOKEN,
-    ENERGY_KILO_WATT_HOUR,
-    POWER_WATT,
-    DEVICE_CLASS_POWER,
 )
 from . import DOMAIN, NatureRemoBase
+from homeassistant.const import UnitOfPower
+from homeassistant.components.sensor.const import SensorDeviceClass
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -33,8 +32,7 @@ class NatureRemoE(NatureRemoBase):
 
     def __init__(self, coordinator, appliance):
         super().__init__(coordinator, appliance)
-        self._unit_of_measurement = POWER_WATT
-
+        self._unit_of_measurement = UnitOfPower.WATT
     @property
     def state(self):
         """Return the state of the sensor."""
@@ -55,7 +53,7 @@ class NatureRemoE(NatureRemoBase):
     @property
     def device_class(self):
         """Return the device class."""
-        return DEVICE_CLASS_POWER
+        return SensorDeviceClass.POWER
 
     async def async_added_to_hass(self):
         """Subscribe to updates."""
